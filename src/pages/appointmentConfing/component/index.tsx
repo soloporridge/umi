@@ -24,7 +24,7 @@ interface TabProps {
     value: { rowKey: number; data: any; row?: any }, // row 只有在保存时才有
     type: 'save' | 'delet',
   ) => void; // 保存 删除时触发
-  customClumns?: ProColumns[]; // 自定义Cloumns
+  customClumns?: ProColumns[]; // 自定义Cloumns 会替换默认值
   setDefaultClumns?: {
     startTime?: ProColumns;
     endTime?: ProColumns;
@@ -33,10 +33,9 @@ interface TabProps {
     operation?: ProColumns;
   }; // 修改默认的Cloumns
   pushDefaultClumns?: ProColumns[]; // 在默认Cloumns中追加
-  editableType: 'single' | 'multiple'; // 选择编辑单行好是多行
+  editableType: 'single' | 'multiple'; // 选择编辑单行还是多行
 }
 /* 
-
   {
       title: '日期区间',
       key: 'createdAtRange',
@@ -164,7 +163,7 @@ const AppointmentConfing: React.FC<TabProps> = (props) => {
           return { id: nanoid() };
         },
       }}
-      columns={columns}
+      columns={ props.customClumns ?? columns}
       value={dataSource}
       editable={{
         type: editableType,

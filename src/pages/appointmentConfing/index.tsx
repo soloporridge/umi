@@ -279,6 +279,7 @@ const AppointmentConfing: React.FC = (props) => {
           setTab={{ rowKey: 'id', headerTitle: '' }}
           editableType="single"
           dataSource={yuyueData}
+          setDefaultClumns={{startTime:{title:'芜湖'}}}
           pushDefaultClumns={[
             {
               title: '日期区间',

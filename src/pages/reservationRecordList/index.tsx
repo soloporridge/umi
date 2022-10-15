@@ -177,12 +177,12 @@ const ReservationRecordList = () => {
           <Row>
             <Col span={9}>
               <Form.Item label="选择预约时间段" name="timeQuantum">
-                <RangePicker showTime />
+                <RangePicker showTime  format="YYYY-MM-DD HH:mm" />
               </Form.Item>
             </Col>
             <Col span={9} push={1}>
               <Form.Item label="选择预约时间" name="time">
-                <RangePicker showTime />
+                <RangePicker showTime  format="YYYY-MM-DD HH:mm" />
               </Form.Item>
             </Col>
             <Col span={3} push={2}>

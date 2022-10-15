@@ -20,7 +20,7 @@
       {
         name: '预约记录列表',
         path: '/management/eservation',
-        component: './appointmentConfing',
+        component: './reservationRecordList',
       },
       {
         naem: '预约配置',
