@@ -6,7 +6,7 @@ import {
   ProFormRadio,
 } from '@ant-design/pro-components';
 import type { ProColumns } from '@ant-design/pro-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { customAlphabet } from 'nanoid';
 import MyTab from './component/index';
 /**
@@ -46,6 +46,7 @@ const yuyueData1: any = [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
+    day: '2021-05-15',
   },
   {
     id: 2,
@@ -57,6 +58,7 @@ const yuyueData1: any = [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
+    day: '2021-05-15',
   },
   {
     id: 3,
@@ -68,6 +70,7 @@ const yuyueData1: any = [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
+    day: '2021-05-15',
   },
   {
     id: 4,
@@ -79,6 +82,7 @@ const yuyueData1: any = [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
+    day: '2021-05-15',
   },
 ];
 
@@ -223,7 +227,9 @@ const AppointmentConfing: React.FC = (props) => {
       ],
     },
   ];
-
+  useEffect(() => {
+    console.log('yuyueData', yuyueData);
+  }, [yuyueData]);
   return (
     <PageContainer title={[]}>
       <ProCard title="参数配置">
@@ -279,7 +285,7 @@ const AppointmentConfing: React.FC = (props) => {
           setTab={{ rowKey: 'id', headerTitle: '' }}
           editableType="single"
           dataSource={yuyueData}
-          setDefaultClumns={{startTime:{title:'芜湖'}}}
+          setDefaultClumns={{ startTime: { title: '芜湖' } }}
           pushDefaultClumns={[
             {
               title: '日期区间',

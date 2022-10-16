@@ -1,8 +1,10 @@
-import { Popconfirm } from 'antd';
+import { Popconfirm, Input, Dropdown, DatePicker } from 'antd';
 import { EditableProTable } from '@ant-design/pro-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { customAlphabet } from 'nanoid';
 import type { ProColumns } from '@ant-design/pro-components';
+import moment from 'moment';
+import type { Moment } from 'moment';
 /**
  * https://github.com/ai/nanoid/blob/HEAD/README.zh-CN.md
  */
@@ -57,6 +59,52 @@ interface TabProps {
     },
 */
 
+const DayTime: React.FC<{ dayChange: (date: Moment, dateString: string) => void }> = ({
+  dayChange,
+}) => {
+  return <DatePicker onChange={dayChange} />;
+};
+
+const Day: React.FC<{ value?: string; onChange?: (value: string) => void }> = ({
+  value,
+  onChange,
+}) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [inpValue, setInpValue] = useState<string>(value);
+  const handelInput = (e, type?: 'focus' | 'blur') => {
+    const values = e.target.value;
+    setInpValue(values);
+    // console.log(values, type);
+    // // console.log(e.tartget);
+  };
+  const dayChange = (date: Moment, dateString: string) => {
+    setInpValue((state) => state + dateString);
+    setIsOpen(false);
+  };
+  useEffect(() => {
+    onChange?.(inpValue);
+  }, [inpValue, onChange]);
+  return (
+    <Dropdown
+      placement="bottomLeft"
+      destroyPopupOnHide
+      overlay={<DayTime dayChange={dayChange} />}
+      trigger={['click']}
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (open) setIsOpen(open);
+      }}
+    >
+      <Input
+        value={inpValue}
+        onChange={handelInput}
+        onFocus={(e) => handelInput(e, 'focus')}
+        onBlur={(e) => handelInput(e, 'blur')}
+      />
+    </Dropdown>
+  );
+};
+
 const AppointmentConfing: React.FC<TabProps> = (props) => {
   const { dataSource, operationalDdata, editableType, setTab } = props;
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
@@ -74,6 +122,13 @@ const AppointmentConfing: React.FC<TabProps> = (props) => {
       dataIndex: 'endTime',
       valueType: 'time',
       ...props.setDefaultClumns?.endTime,
+    },
+    {
+      title: '自定义',
+      dataIndex: 'day',
+      renderFormItem(schema, config, form, action?) {
+        return <Day />;
+      },
     },
     {
       title: '可预约类型',
@@ -163,7 +218,7 @@ const AppointmentConfing: React.FC<TabProps> = (props) => {
           return { id: nanoid() };
         },
       }}
-      columns={ props.customClumns ?? columns}
+      columns={props.customClumns ?? columns}
       value={dataSource}
       editable={{
         type: editableType,
