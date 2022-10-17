@@ -47,42 +47,46 @@ const yuyueData1: any = [
       Date.now() - Math.floor(Math.random() * 2000),
     ],
     day: '2021-05-15',
+    site: ['203', '204', '208'],
   },
   {
     id: 2,
     type: '训练',
     startTime: Date.now() - Math.floor(Math.random() * 1000),
     endTime: Date.now() - Math.floor(Math.random() * 500),
-    date: ['1', '2', '5'],
+    date: ['4', '3'],
     createdAtRange: [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
-    day: '2021-05-15',
+    day: '2021-05-16',
+    site: ['305'],
   },
   {
     id: 3,
     type: '课堂',
     startTime: Date.now() - Math.floor(Math.random() * 1000),
     endTime: Date.now() - Math.floor(Math.random() * 500),
-    date: ['1', '2', '5'],
+    date: ['6'],
     createdAtRange: [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
     day: '2021-05-15',
+    site: ['198'],
   },
   {
     id: 4,
     type: '训练',
     startTime: Date.now() - Math.floor(Math.random() * 1000),
     endTime: Date.now() - Math.floor(Math.random() * 500),
-    date: ['1', '2', '5'],
+    date: ['3'],
     createdAtRange: [
       Date.now() - Math.floor(Math.random() * 2000),
       Date.now() - Math.floor(Math.random() * 2000),
     ],
     day: '2021-05-15',
+    site: ['203'],
   },
 ];
 
@@ -300,12 +304,37 @@ const AppointmentConfing: React.FC = (props) => {
                 );
               },
             },
+            {
+              title: '场地名称',
+              dataIndex: 'site',
+              render: (_, row) => {
+                const { site } = row;
+                return site.map((item) => <span>{item}&nbsp;</span>);
+              },
+            },
           ]}
           operationalDdata={({ rowKey, data, row }, type) => {
             if (type == 'save') {
               const r = [...yuyueData];
               r.splice(data.index, 1, data);
-              setYuyueData(r);
+
+              const { site, date, startTime, endTime, index } = data;
+              const fn = (arr1, arr2) => {
+                return arr1.some((item) => {
+                  return arr2.some((i) => {
+                    return i == item;
+                  });
+                });
+              };
+              for (let i = 0; i < yuyueData.length; i++) {
+                if (i !== index) {
+                  const res =
+                    fn(yuyueData[i].date, date) && fn(yuyueData[i].site, site) ? true : false;
+                  if (!res) continue;
+                }
+              }
+
+              // setYuyueData(r);
             }
           }}
         />
