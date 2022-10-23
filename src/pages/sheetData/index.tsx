@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
+import { delteW } from './test';
 const data = {
   sheetName: {
     '!margins': {},
@@ -24,11 +25,38 @@ const data = {
       t: 's',
       v: '也一样',
     },
+    A7: {
+      t: 's',
+      v: 'A7',
+    },
   },
 };
 const Sheet = () => {
   const [sheetData, setSheetData] = useState<any>(data);
-  const delet = (row: string) => {
+  const [sheetKeys, setSheetKeys] = useState<any>(Object.keys(data.sheetName));
+  const [deletKeys, setDeletKeys] = useState<any>([]);
+  const delet = (rowKey: string) => {
+    const indexs = sheetKeys.indexOf(rowKey);
+    console.log('indexs', indexs);
+    setDeletKeys((state: any) => [...state, rowKey]);
+  };
+  const onMap = () => {
+    delteW(sheetKeys, deletKeys, sheetData);
+  };
+
+  return (
+    <div>
+      <Button onClick={() => delet('A2')}>删除A2</Button>
+      <Button onClick={() => delet('A5')}>删除A5</Button>
+      <Button onClick={() => onMap()}>遍历</Button>
+    </div>
+  );
+};
+export default Sheet;
+
+/* 
+第一版
+const delet = (row: string) => {
     const rs = Number(row.replace('A', '')) + 1;
     const sheetKey = Object.keys(sheetData.sheetName);
     const detIndex = sheetKey.indexOf('A' + rs);
@@ -51,13 +79,5 @@ const Sheet = () => {
     console.log('sheetKey', sheetKey);
     console.log('detIndex', detIndex);
   };
-  useEffect(() => {
-    console.log('表格变化后', sheetData);
-  }, [sheetData]);
-  return (
-    <div>
-      <Button onClick={() => delet('A1')}>删除</Button>
-    </div>
-  );
-};
-export default Sheet;
+
+*/
