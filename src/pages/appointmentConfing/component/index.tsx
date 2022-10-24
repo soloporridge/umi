@@ -125,9 +125,24 @@ const AppointmentConfing: React.FC<TabProps> = (props) => {
     },
     {
       title: '自定义',
+      filters: true,
+      onFilter: true,
+      valueEnum: {
+        '2021-05-15': {
+          text: '未解决',
+          status: 'Error',
+        },
+        '2021-05-16': {
+          text: '已解决',
+          status: 'Success',
+        },
+      },
       dataIndex: 'day',
       renderFormItem(schema, config, form, action?) {
         return <Day />;
+      },
+      render: (_, row) => {
+        return <div>{row.day}</div>;
       },
     },
     {
