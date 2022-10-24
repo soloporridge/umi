@@ -14,6 +14,11 @@
     ],
   },
   {
+    name: 'Ref转发',
+    path: '/ref',
+    component: './ref',
+  },
+  {
     name: '预约管理',
     path: '/management',
     routes: [
