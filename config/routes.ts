@@ -14,6 +14,11 @@
     ],
   },
   {
+    name: 'websocket',
+    path: '/websocket',
+    component: './websocket',
+  },
+  {
     name: 'swiper',
     path: '/swiper',
     component: './swiper',
