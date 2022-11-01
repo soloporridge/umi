@@ -64,7 +64,11 @@
     "react-dom": "^17.0.0",
     "react-helmet-async": "^1.2.0",
     "reqwest": "^2.0.5",
+<<<<<<< HEAD
     "swiper": "6.8.4",
+=======
+    "swiper": "^6.8.4",
+>>>>>>> 4b9eecbb65d9e61a0618414f6cb6ed0fea17921d
     "umi": "^3.5.0",
     "xlsx": "^0.18.5"
   },

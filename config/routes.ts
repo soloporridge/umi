@@ -14,6 +14,16 @@
     ],
   },
   {
+    name: 'websocket',
+    path: '/websocket',
+    component: './websocket',
+  },
+  {
+    name: 'swiper',
+    path: '/swiper',
+    component: './swiper',
+  },
+  {
     name: 'Ref转发',
     path: '/ref',
     component: './ref',
