@@ -1,0 +1,28 @@
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.box {
+  width: 500px;
+  height: 200px;
+  padding-bottom: 10px;
+  // border: 1px solid black;
+  box-shadow: 0 1px 10px -2px #333;
+  .conten {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        box-sizing: border-box;
+        width: 144px;
+        height: 85px;
+        // margin: 10px;
+        margin: 10px 10px 0 10px;
+        border: 1px solid black;
+      }
+    }
+  }
+}

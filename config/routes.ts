@@ -14,6 +14,22 @@
     ],
   },
   {
+    name: 'ScoringMutual',
+    path: '/scoringMutual',
+    component: './ScoringMutual',
+  },
+  {
+    name: 'G2',
+    path: '/g2',
+    component: './G2',
+  },
+
+  {
+    name: 'Iframe',
+    path: '/iframe',
+    component: './iframe',
+  },
+  {
     name: 'websocket',
     path: '/websocket',
     component: './websocket',
