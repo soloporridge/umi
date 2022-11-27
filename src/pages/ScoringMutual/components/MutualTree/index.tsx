@@ -50,9 +50,10 @@ const createTreeData = (arr: any[]) => {
 
     if (arr[i]?.scoringStep?.length) {
       const n = countScore(arr[i].scoringStep);
+      const { terr } = createTreeData(arr[i].scoringStep);
       current.title = `${arr[i].title} (${n})分`;
       current.key = arr[i].id;
-      current.children = createTreeData(arr[i].scoringStep);
+      current.children = terr;
       score.scoreAll = score.scoreAll += n;
       console.log('scoringStep', n);
 
@@ -65,7 +66,10 @@ const createTreeData = (arr: any[]) => {
   }
   console.log('score---', score);
 
-  return data;
+  return {
+    terr: data,
+    score: score,
+  };
 };
 
 const MutualTree: React.FC = () => {
@@ -76,6 +80,7 @@ const MutualTree: React.FC = () => {
   const [stepsBtn, setStepsBtn] = useState<boolean>(true); // 步骤按钮是否可点击
   const [modalType, setModalType] = useState<0 | 1>(0); // 0项目 1步骤
   const [optionType, SetOptionType] = useState<'add' | 'edit'>();
+  const [allNum, setAllNum] = useState<number>(0);
   // const [current, setCurrent] = useState<{ key: string; pos: string; title: string }>(); // 当前点击或右键的树结构
 
   const { scoringSectionList, setSectionList, flag, setCurrentFn, current, scoringId } = useModel(
@@ -205,9 +210,11 @@ const MutualTree: React.FC = () => {
     console.log('current', current);
   }, [current]);
   useEffect(() => {
-    console.log('zhix ');
-
-    setTreeDatas(createTreeData(scoringSectionList));
+    const { terr, score } = createTreeData(scoringSectionList);
+    console.log('zhix ', score);
+    setAllNum(score.scoreAll);
+    // setTreeDatas(createTreeData(scoringSectionList));
+    setTreeDatas(terr);
   }, [scoringSectionList, flag]);
   return (
     <div style={{ minHeight: 550 }}>
@@ -220,7 +227,7 @@ const MutualTree: React.FC = () => {
         </Button>
       </div>
       <div style={{ padding: '15px 0' }}>
-        <span>评分表总分：{30}</span>
+        <span>评分表总分：{allNum}</span>
       </div>
       <Dropdown
         menu={{ items }}
